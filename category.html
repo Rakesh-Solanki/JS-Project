@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Quiz Category - Quiz4All</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/png" href="images/Mainlogo.png">
+</head>
+<body>
+    <!--------------Nav-Bar----------------->
+    <nav class="navbar">
+        <div class="logo">
+            <a href="index.html">
+                <img src="images/Mainlogo.png" alt="Quiz4All Logo">
+            </a>
+            <span>Quiz4All</span>
+        </div>
+    </nav>
+
+    <!-- CATEGORY SECTION -->
+    <section class="category-page">
+        <h2 class="section-title">Choose Your Quiz</h2>
+        <p class="section-desc">Pick a subject and start testing your skills 🚀</p>
+
+        <div class="card-grid" id="fieldGrid">
+            <div class="card" onclick="goToQuizPage('c')">
+                <img src="images/letter-c.png" alt="C Programming">
+                <h3>Join C Quiz</h3>
+                <p>🖥️ Attempt C MCQs • Test basics</p>
+            </div>
+
+            <div class="card" onclick="goToQuizPage('java')">
+                <img src="images/java.png" alt="Java">
+                <h3>Join Java Quiz</h3>
+                <p>☕ Attempt Java MCQs • Test OOP</p>
+            </div>
+
+            <div class="card" onclick="goToQuizPage('js')">
+                <img src="images/js.png" alt="JavaScript">
+                <h3>Join JS Quiz</h3>
+                <p>🟨 Attempt JS MCQs • Test logic</p>
+            </div>
+
+            <div class="card" onclick="goToQuizPage('python')">
+                <img src="images/python.png" alt="Python">
+                <h3>Join Python Quiz</h3>
+                <p>🐍 Attempt Python MCQs • Test skills</p>
+            </div>
+
+            <div class="card" onclick="goToQuizPage('dbms')">
+                <img src="images/dbms.jpg" alt="DBMS">
+                <h3>Join DBMS Quiz</h3>
+                <p>🗄️ Attempt DBMS MCQs • Test concepts</p>
+            </div>
+
+            <div class="card" onclick="goToQuizPage('dsa')">
+                <img src="images/dsa.jpg" alt="DSA">
+                <h3>Join DSA Quiz</h3>
+                <p>🧠 Attempt DSA MCQs • Test logic</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="footer-title">Quiz4All</p>
+            <p>Learn • Practice • Improve</p>
+            <p class="copyright">
+                © 2025 Quiz4All. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        function goToQuizPage(subject) {
+            window.location.href = "quiz.html?subject=" + subject;
+        }
+    </script>
+</body>
+</html>

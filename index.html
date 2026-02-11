@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz4All - Test Your Knowledge</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/png" href="images/Mainlogo.png">
+</head>
+<body>
+    <!--------------Nav-Bar----------------->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="images/Mainlogo.png" alt="Quiz4All Logo">
+            <span>Quiz4All</span>
+        </div>
+    </nav>
+
+    <!--------------Hero-section----------------->
+    <section class="hero">
+        <div class="hero-left">
+            <h1>How well do you know?</h1>
+            <p class="subtitle">
+                Ready to challenge your knowledge and test your skills with smart quizzes?
+            </p>
+
+            <button class="primary-btn" onclick="goToCategoryPage()">Enter Quiz</button>
+            
+            <div class="auth-links">
+                <a href="login.html" class="per-link">Login</a>
+                <a href="register.html" class="per-link">Register</a>
+            </div>
+        </div>
+
+        <div class="hero-right">
+            <div class="image-card">
+                <img src="images/hero_banner.png" alt="Quiz Banner">
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="footer-title">Quiz4All</p>
+            <p>A Quiz Platform for Everyone</p>
+            <p class="copyright">
+                © 2025 Quiz4All. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        function goToCategoryPage() {
+            window.location.href = "category.html";
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz - Quiz4All</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/png" href="images/Mainlogo.png">
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav class="quiz-header-nav">
+<!--        <div class="quiz-logo-small">-->
+<!--            <a href="index.html">-->
+<!--                <img src="images/Mainlogo.png" alt="Quiz4All">-->
+<!--            </a>-->
+<!--            <span>Quiz4All</span>-->
+<!--        </div>-->
+        <div class="user-profile" id="categoryDisplay">Loading...</div>
+    </nav>
+
+    <!-- QUIZ AREA -->
+    <section class="quiz-container">
+        <div class="quiz-card" id="quizCard">
+            <!-- Quiz content will be dynamically loaded here -->
+        </div>
+    </section>
+
+    <script>
+        // Quiz Data for all categories
+        const quizData = {
+            c: {
+                name: "C Programming",
+                questions: [
+                    {
+                        question: "Who is the creator of C programming language?",
+                        options: ["James Gosling", "Dennis Ritchie", "Bjarne Stroustrup", "Ken Thompson"],
+                        correct: 1
+                    },
+                    {
+                        question: "Which of the following is the correct way to declare a pointer in C?",
+                        options: ["int ptr;", "int *ptr;", "pointer int ptr;", "int &ptr;"],
+                        correct: 1
+                    },
+                    {
+                        question: "What is the size of 'int' data type in C (typically on 32-bit systems)?",
+                        options: ["2 bytes", "4 bytes", "8 bytes", "Depends on compiler"],
+                        correct: 1
+                    },
+                    {
+                        question: "Which function is used to allocate memory dynamically in C?",
+                        options: ["alloc()", "malloc()", "new()", "create()"],
+                        correct: 1
+                    },
+                    {
+                        question: "What does the 'printf()' function return?",
+                        options: ["Always 0", "Number of characters printed", "Always 1", "Void"],
+                        correct: 1
+                    },
+                    {
+                        question: "Which header file is required for using 'strlen()' function?",
+                        options: ["stdio.h", "stdlib.h", "string.h", "math.h"],
+                        correct: 2
+                    },
+                    {
+                        question: "What is the output of: printf('%d', 5/2);",
+                        options: ["2.5", "2", "3", "Error"],
+                        correct: 1
+                    },
+                    {
+                        question: "Which operator is used to access the value at a pointer address?",
+                        options: ["&", "*", "->", "."],
+                        correct: 1
+                    },
+                    {
+                        question: "What is a structure in C?",
+                        options: ["A function", "A user-defined data type", "A loop", "A keyword"],
+                        correct: 1
+                    },
+                    {
+                        question: "Which loop executes at least once?",
+                        options: ["for loop", "while loop", "do-while loop", "None"],
+                        correct: 2
+                    }
+                ]
+            },
+            java: {
+                name: "Java Programming",
+                questions: [
+                    {
+                        question: "Who created Java programming language?",
+                        options: ["Microsoft", "Sun Microsystems", "Apple", "IBM"],
+                        correct: 1
+                    },
+                    {
+                        question: "Which of the following is NOT a Java access modifier?",
+                        options: ["public", "private", "protected", "external"],
+                        correct: 3
+                    },
+                    {
+                        question: "What is the default value of a boolean variable in Java?",
+                        options: ["true", "false", "0", "null"],
+                        correct: 1
+                    },
+                    {
+                        question: "Which keyword is used to inherit a class in Java?",
+                        options: ["implements", "extends", "inherits", "uses"],
+                        correct: 1
+                    },
+                    {
+                        question: "What does JVM stand for?",
+                        options: ["Java Variable Machine", "Java Virtual Machine", "Java Visual Machine", "Java Verified Machine"],
+                        correct: 1
+                    },
+                    {
+                        question: "Which method is the entry point of a Java program?",
+                        options: ["start()", "run()", "main()", "execute()"],
+                        correct: 2
+                    },
+                    {
+                        question: "How many bytes does a 'long' data type occupy in Java?",
+                        options: ["4 bytes", "8 bytes", "2 bytes", "16 bytes"],
+                        correct: 1
+                    },
+                    {
+                        question: "Which of these is NOT a wrapper class in Java?",
+                        options: ["Integer", "Float", "int", "Character"],
+                        correct: 2
+                    },
+                    {
+                        question: "What is the parent class of all classes in Java?",
+                        options: ["Class", "Object", "Main", "Super"],
+                        correct: 1
+                    },
+                    {
+                        question: "Which exception is thrown when dividing by zero?",
+                        options: ["NullPointerException", "ArithmeticException", "DivideException", "MathException"],
+                        correct: 1
+                    }
+                ]
+            },
+            js: {
+                name: "JavaScript",
+                questions: [
+                    {
+                        question: "Which of the following is used to declare a constant in JavaScript?",
+                        options: ["var", "let", "const", "static"],
+                        correct: 2
+                    },
+                    {
+                        question: "What is the output of: typeof null?",
+                        options: ["'null'", "'undefined'", "'object'", "'number'"],
+                        correct: 2
+                    },
+                    {
+                        question: "Which method adds an element to the end of an array?",
+                        options: ["push()", "pop()", "shift()", "unshift()"],
+                        correct: 0
+                    },
+                    {
+                        question: "What does '===' operator do in JavaScript?",
+                        options: ["Loose equality", "Strict equality", "Assignment", "Comparison only"],
+                        correct: 1
+                    },
+                    {
+                        question: "Which function is used to parse a string to an integer?",
+                        options: ["parseInt()", "toInt()", "Integer()", "parseInteger()"],
+                        correct: 0
+                    },
+                    {
+                        question: "What is the scope of a variable declared with 'let'?",
+                        options: ["Global scope", "Function scope", "Block scope", "Module scope"],
+                        correct: 2
+                    },
+                    {
+                        question: "Which event fires when an HTML document has been completely loaded?",
+                        options: ["onload", "onready", "ondocumentready", "DOMContentLoaded"],
+                        correct: 3
+                    },
+                    {
+                        question: "What does 'NaN' stand for in JavaScript?",
+                        options: ["Not a Null", "Not a Number", "New and Null", "None"],
+                        correct: 1
+                    },
+                    {
+                        question: "Which method creates a new array with all elements that pass a test?",
+                        options: ["map()", "filter()", "reduce()", "forEach()"],
+                        correct: 1
+                    },
+                    {
+                        question: "What is the output of: console.log(0.1 + 0.2 === 0.3)?",
+                        options: ["true", "false", "undefined", "Error"],
+                        correct: 1
+                    }
+                ]
+            },
+            python: {
+                name: "Python Programming",
+                questions: [
+                    {
+                        question: "Who created Python programming language?",
+                        options: ["James Gosling", "Guido van Rossum", "Dennis Ritchie", "Brendan Eich"],
+                        correct: 1
+                    },
+                    {
+                        question: "Which of the following is used to define a function in Python?",
+                        options: ["function", "def", "func", "define"],
+                        correct: 1
+                    },
+                    {
+                        question: "What is the output of: print(3 ** 2)?",
+                        options: ["6", "9", "8", "Error"],
+                        correct: 1
+                    },
+                    {
+                        question: "Which data type is mutable in Python?",
+                        options: ["tuple", "string", "list", "int"],
+                        correct: 2
+                    },
+                    {
+                        question: "What does 'len()' function do?",
+                        options: ["Returns length", "Creates list", "Sorts elements", "Counts items"],
+                        correct: 0
+                    },
+                    {
+                        question: "Which keyword is used to handle exceptions in Python?",
+                        options: ["catch", "except", "try", "handle"],
+                        correct: 1
+                    },
+                    {
+                        question: "What is the correct way to create a dictionary?",
+                        options: ["dict = []", "dict = {}", "dict = ()", "dict = ''"],
+                        correct: 1
+                    },
+                    {
+                        question: "Which method removes the last item from a list?",
+                        options: ["remove()", "delete()", "pop()", "clear()"],
+                        correct: 2
+                    },
+                    {
+                        question: "What is a lambda function in Python?",
+                        options: ["Named function", "Anonymous function", "Recursive function", "Built-in function"],
+                        correct: 1
+                    },
+                    {
+                        question: "Which module is used for working with regular expressions?",
+                        options: ["regex", "re", "regexp", "pattern"],
+                        correct: 1
+                    }
+                ]
+            },
+            dbms: {
+                name: "Database Management System",
+                questions: [
+                    {
+                        question: "What does SQL stand for?",
+                        options: ["Structured Query Language", "Simple Query Language", "System Query Language", "Standard Query Language"],
+                        correct: 0
+                    },
+                    {
+                        question: "Which SQL command is used to retrieve data?",
+                        options: ["GET", "FETCH", "SELECT", "RETRIEVE"],
+                        correct: 2
+                    },
+                    {
+                        question: "What is a primary key?",
+                        options: ["A foreign key", "A unique identifier", "A password", "An index"],
+                        correct: 1
+                    },
+                    {
+                        question: "Which normal form eliminates transitive dependencies?",
+                        options: ["1NF", "2NF", "3NF", "BCNF"],
+                        correct: 2
+                    },
+                    {
+                        question: "What type of relationship exists when one record in Table A relates to many records in Table B?",
+                        options: ["One-to-One", "One-to-Many", "Many-to-Many", "None"],
+                        correct: 1
+                    },
+                    {
+                        question: "Which clause is used to filter grouped data?",
+                        options: ["WHERE", "HAVING", "GROUP BY", "FILTER"],
+                        correct: 1
+                    },
+                    {
+                        question: "What is ACID in database systems?",
+                        options: ["A chemical compound", "A set of properties", "A query language", "A data type"],
+                        correct: 1
+                    },
+                    {
+                        question: "Which join returns all records from the left table?",
+                        options: ["INNER JOIN", "RIGHT JOIN", "LEFT JOIN", "FULL JOIN"],
+                        correct: 2
+                    },
+                    {
+                        question: "What does DDL stand for?",
+                        options: ["Data Definition Language", "Data Description Language", "Database Definition Language", "Data Design Language"],
+                        correct: 0
+                    },
+                    {
+                        question: "Which command is used to remove all records from a table but keep the structure?",
+                        options: ["DELETE", "DROP", "TRUNCATE", "REMOVE"],
+                        correct: 2
+                    }
+                ]
+            },
+            dsa: {
+                name: "Data Structures & Algorithms",
+                questions: [
+                    {
+                        question: "What is the time complexity of binary search?",
+                        options: ["O(n)", "O(log n)", "O(n log n)", "O(1)"],
+                        correct: 1
+                    },
+                    {
+                        question: "Which data structure follows LIFO principle?",
+                        options: ["Queue", "Stack", "Array", "Linked List"],
+                        correct: 1
+                    },
+                    {
+                        question: "What is the worst-case time complexity of quicksort?",
+                        options: ["O(n log n)", "O(n²)", "O(n)", "O(log n)"],
+                        correct: 1
+                    },
+                    {
+                        question: "Which sorting algorithm has the best average-case performance?",
+                        options: ["Bubble Sort", "Selection Sort", "Merge Sort", "Insertion Sort"],
+                        correct: 2
+                    },
+                    {
+                        question: "What is a graph data structure?",
+                        options: ["Linear data structure", "Non-linear data structure", "Static structure", "None"],
+                        correct: 1
+                    },
+                    {
+                        question: "Which traversal visits the root node first?",
+                        options: ["In-order", "Pre-order", "Post-order", "Level-order"],
+                        correct: 1
+                    },
+                    {
+                        question: "What is the space complexity of an array?",
+                        options: ["O(1)", "O(n)", "O(log n)", "O(n²)"],
+                        correct: 1
+                    },
+                    {
+                        question: "Which data structure is best for implementing a priority queue?",
+                        options: ["Array", "Linked List", "Heap", "Stack"],
+                        correct: 2
+                    },
+                    {
+                        question: "What is the time complexity of accessing an element in an array by index?",
+                        options: ["O(1)", "O(n)", "O(log n)", "O(n²)"],
+                        correct: 0
+                    },
+                    {
+                        question: "Which algorithm is used to find the shortest path in a weighted graph?",
+                        options: ["BFS", "DFS", "Dijkstra's Algorithm", "Binary Search"],
+                        correct: 2
+                    }
+                ]
+            }
+        };
+
+        // Quiz State
+        let currentQuiz = null;
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let timer = null;
+        let timeLeft = 300; // 5 minutes in seconds
+
+        // Get subject from URL
+        function getSubjectFromURL() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('subject') || 'c';
+        }
+
+        // Initialize Quiz
+        function initQuiz() {
+            const subject = getSubjectFromURL();
+            currentQuiz = quizData[subject];
+            
+            if (!currentQuiz) {
+                document.getElementById('quizCard').innerHTML = `
+                    <div class="results-card">
+                        <div class="results-icon">❌</div>
+                        <h2 class="results-title">Quiz Not Found</h2>
+                        <p class="results-message">The selected quiz category does not exist.</p>
+                        <button class="btn btn-next" onclick="window.location.href='category.html'">Back to Categories</button>
+                    </div>
+                `;
+                return;
+            }
+
+            document.getElementById('categoryDisplay').textContent = currentQuiz.name;
+            userAnswers = new Array(currentQuiz.questions.length).fill(null);
+            showQuestion();
+            startTimer();
+        }
+
+        // Show Current Question
+        function showQuestion() {
+            const question = currentQuiz.questions[currentQuestionIndex];
+            const progress = ((currentQuestionIndex + 1) / currentQuiz.questions.length) * 100;
+            
+            let optionsHTML = '';
+            question.options.forEach((option, index) => {
+                const isSelected = userAnswers[currentQuestionIndex] === index;
+                optionsHTML += `
+                    <li class="option-item">
+                        <input type="radio" id="opt${index}" name="answer" value="${index}" ${isSelected ? 'checked' : ''}>
+                        <label for="opt${index}">
+                            <span class="custom-radio"></span>
+                            ${option}
+                        </label>
+                    </li>
+                `;
+            });
+
+            document.getElementById('quizCard').innerHTML = `
+                <div class="quiz-header">
+                    <div class="question-counter">Question ${currentQuestionIndex + 1} / ${currentQuiz.questions.length}</div>
+                    <div class="quiz-timer" id="timer">⏱ ${formatTime(timeLeft)}</div>
+                </div>
+
+                <div class="progress-container">
+                    <div class="progress-fill" style="width: ${progress}%"></div>
+                </div>
+
+                <h2 class="question-text">${question.question}</h2>
+
+                <ul class="options-list">
+                    ${optionsHTML}
+                </ul>
+
+                <div class="quiz-footer">
+                    <button class="btn btn-prev" onclick="previousQuestion()" ${currentQuestionIndex === 0 ? 'disabled' : ''}>Previous</button>
+                    ${currentQuestionIndex === currentQuiz.questions.length - 1 
+                        ? `<button class="btn btn-next" onclick="submitQuiz()">Submit</button>`
+                        : `<button class="btn btn-next" onclick="nextQuestion()">Next</button>`
+                    }
+                </div>
+            `;
+
+            // Add event listeners to options
+            document.querySelectorAll('input[name="answer"]').forEach(radio => {
+                radio.addEventListener('change', function() {
+                    userAnswers[currentQuestionIndex] = parseInt(this.value);
+                });
+            });
+        }
+
+        // Format time
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        // Start Timer
+        function startTimer() {
+            timer = setInterval(() => {
+                timeLeft--;
+                const timerEl = document.getElementById('timer');
+                if (timerEl) {
+                    timerEl.textContent = `⏱ ${formatTime(timeLeft)}`;
+                    if (timeLeft <= 60) {
+                        timerEl.style.background = '#ffcccc';
+                        timerEl.style.color = '#cc0000';
+                    }
+                }
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    submitQuiz();
+                }
+            }, 1000);
+        }
+
+        // Next Question
+        function nextQuestion() {
+            if (currentQuestionIndex < currentQuiz.questions.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+            }
+        }
+
+        // Previous Question
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion();
+            }
+        }
+
+        // Submit Quiz
+        function submitQuiz() {
+            clearInterval(timer);
+            
+            let correctAnswers = 0;
+            userAnswers.forEach((answer, index) => {
+                if (answer === currentQuiz.questions[index].correct) {
+                    correctAnswers++;
+                }
+            });
+
+            const score = Math.round((correctAnswers / currentQuiz.questions.length) * 100);
+            const attempted = userAnswers.filter(a => a !== null).length;
+            
+            let message = '';
+            let icon = '';
+            if (score >= 80) {
+                message = 'Excellent work! You are a master!';
+                icon = '🏆';
+            } else if (score >= 60) {
+                message = 'Good job! Keep practicing!';
+                icon = '👏';
+            } else if (score >= 40) {
+                message = 'Not bad! Room for improvement!';
+                icon = '💪';
+            } else {
+                message = 'Keep learning! You will get better!';
+                icon = '📚';
+            }
+
+            document.getElementById('quizCard').innerHTML = `
+                <div class="results-card">
+                    <div class="results-icon">${icon}</div>
+                    <h2 class="results-title">Quiz Completed!</h2>
+                    <div class="results-score">${score}%</div>
+                    <p class="results-message">${message}</p>
+                    
+                    <div class="results-details">
+                        <div class="result-stat">
+                            <div class="result-stat-value">${correctAnswers}</div>
+                            <div class="result-stat-label">Correct</div>
+                        </div>
+                        <div class="result-stat">
+                            <div class="result-stat-value">${currentQuiz.questions.length - correctAnswers}</div>
+                            <div class="result-stat-label">Incorrect</div>
+                        </div>
+                        <div class="result-stat">
+                            <div class="result-stat-value">${attempted}</div>
+                            <div class="result-stat-label">Attempted</div>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-next" onclick="window.location.href='category.html'">Back to Categories</button>
+                </div>
+            `;
+        }
+
+        // Initialize on page load
+        window.onload = initQuiz;
+    </script>
+</body>
+</html>
